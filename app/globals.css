@@ -1,26 +1,154 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Abril+Fatface&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --chili: #C0392B;
+  --chili-dark: #922B21;
+  --ember: #E67E22;
+  --cream: #FDF6EC;
+  --cream-dark: #F5E6CC;
+  --charcoal: #1C1C1C;
+  --gold: #D4A017;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+::selection { background: var(--chili); color: white; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream-dark); }
+::-webkit-scrollbar-thumb { background: var(--chili); border-radius: 3px; }
+
+/* Wavy underline decoration */
+.wavy {
+  text-decoration: underline wavy var(--ember);
+  text-underline-offset: 6px;
+}
+
+/* Sticker badge */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--chili);
+  color: white;
+  border-radius: 50%;
+  font-family: 'Abril Fatface', cursive;
+  transform: rotate(-8deg);
+  box-shadow: 3px 3px 0 var(--chili-dark);
+}
+
+/* Menu card hover */
+.menu-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.menu-card:hover {
+  transform: translateY(-6px) rotate(0.5deg);
+  box-shadow: 0 20px 40px rgba(192, 57, 43, 0.2);
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 18s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+
+/* Spice dots */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(180deg); }
+}
+
+/* Fade up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.7s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* Star rating */
+.star { color: var(--gold); fill: var(--gold); }
+
+/* Chili divider */
+.chili-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--chili), var(--ember), var(--chili), transparent);
+  border: none;
+}
+
+/* Btn */
+.btn-fire {
+  background: var(--chili);
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 14px 36px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+.btn-fire::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 100%;
+  height: 100%;
+  background: var(--chili-dark);
+  z-index: -1;
+  transition: all 0.2s ease;
+}
+.btn-fire:hover { transform: translate(-2px, -2px); }
+.btn-fire:hover::after { bottom: -6px; right: -6px; }
+.btn-fire:active { transform: translate(0, 0); }
+.btn-fire:active::after { bottom: -2px; right: -2px; }
+
+.btn-outline-fire {
+  background: transparent;
+  color: var(--chili);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 13px 34px;
+  border: 2px solid var(--chili);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-align: center;
+}
+.btn-outline-fire:hover {
+  background: var(--chili);
+  color: white;
 }
