@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 :root {
+  --font-accent: "Abril Fatface", cursive;
+  --font-display: "Playfair Display", serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  
   --chili: #C0392B;
   --chili-dark: #922B21;
   --ember: #E67E22;
